@@ -64,6 +64,12 @@ public class LocalData : MonoBehaviour
         return welcomeText;
     }
 
+    public void SetWelcomeText(string text)
+    {
+        welcomeText = text;
+        Save();
+    }
+
     public int GetStartingNumber()
     {
         return startingNumber;
