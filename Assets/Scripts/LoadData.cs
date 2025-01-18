@@ -1,13 +1,15 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.Serialization;
 
 public class WelcomeData
 {
     public string welcomeText;
+}
+
+public class SettingsData
+{
+    public int startingNumber;
 }
 
 public class LoadData : MonoBehaviour
@@ -17,7 +19,9 @@ public class LoadData : MonoBehaviour
     [SerializeField] 
     private string bundleNameInServer;
     [SerializeField] 
-    private string welcomeJSONNameInServer; 
+    private string welcomeJSONNameInServer;
+    [SerializeField] 
+    private string settingsJSONNameInServer;
 
     private AssetBundle spriteBundle;
 
@@ -26,6 +30,18 @@ public class LoadData : MonoBehaviour
         Coroutine getBundleSprite = StartCoroutine(GetBundleSpriteFromServer());
 
         yield return getBundleSprite;
+
+        Coroutine getWelcomeText = StartCoroutine(GetSettingsFromJSONFileInServer());
+
+        yield return getWelcomeText;
+
+        if (LocalData.Instance.GetStartingNumber() == 0)
+        {
+            Coroutine getStartingNumber = StartCoroutine(GetSettingsFromJSONFileInServer());
+
+            yield return getStartingNumber;
+            
+        }
     }
 
     #region GetBundleSpriteFromServer
@@ -103,6 +119,40 @@ public class LoadData : MonoBehaviour
         WelcomeData welcomeData = JsonUtility.FromJson<WelcomeData>(json);
         
         LocalData.Instance.SetWelcomeText(welcomeData.welcomeText);
+        
+        //SetWelcomeText
+    }
+
+    #endregion
+
+    #region GetSettingsDataFromServer
+
+    IEnumerator GetSettingsFromJSONFileInServer()
+    {
+        UnityWebRequest request = UnityWebRequest.Get(serverURL + "/" + settingsJSONNameInServer);
+
+        yield return request.SendWebRequest();
+        
+        if (request.result == UnityWebRequest.Result.ConnectionError 
+            || request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError($"Ошибка: {request.error}");
+        }
+        else
+        {
+            string jsonResponse = request.downloadHandler.text;
+            
+            ParseSettingsJSON(jsonResponse);
+        }
+    }
+
+    private void ParseSettingsJSON(string json)
+    {
+        SettingsData settingsData = JsonUtility.FromJson<SettingsData>(json);
+
+        LocalData.Instance.SetStartingNumber(settingsData.startingNumber);
+        
+        //Set staring number
     }
 
     #endregion
