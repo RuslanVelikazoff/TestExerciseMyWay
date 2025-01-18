@@ -25,6 +25,8 @@ public class LoadData : MonoBehaviour
 
     private AssetBundle spriteBundle;
 
+    [SerializeField] private GameScreen gameScreen;
+
     private IEnumerator Start()
     {
         Coroutine getBundleSprite = StartCoroutine(GetBundleSpriteFromServer());
@@ -40,7 +42,6 @@ public class LoadData : MonoBehaviour
             Coroutine getStartingNumber = StartCoroutine(GetSettingsFromJSONFileInServer());
 
             yield return getStartingNumber;
-            
         }
     }
 
@@ -82,7 +83,7 @@ public class LoadData : MonoBehaviour
         if (buttonSprite != null)
         {
             Debug.Log("Спрайт успешно выгружен");
-            //Накинуть спрайт на кнопку
+            gameScreen.SetButtonSprite(buttonSprite);
         }
         else
         {
@@ -119,8 +120,6 @@ public class LoadData : MonoBehaviour
         WelcomeData welcomeData = JsonUtility.FromJson<WelcomeData>(json);
         
         LocalData.Instance.SetWelcomeText(welcomeData.welcomeText);
-        
-        //SetWelcomeText
     }
 
     #endregion
@@ -151,8 +150,6 @@ public class LoadData : MonoBehaviour
         SettingsData settingsData = JsonUtility.FromJson<SettingsData>(json);
 
         LocalData.Instance.SetStartingNumber(settingsData.startingNumber);
-        
-        //Set staring number
     }
 
     #endregion
