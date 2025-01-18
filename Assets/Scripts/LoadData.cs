@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Serialization;
 
 public class LoadData : MonoBehaviour
 {
     private string serverURL = "";
 
     [SerializeField] 
-    private string stringBundleNameInServer;
+    private string bundleNameInServer;
+    [SerializeField] 
+    private string welcomeJSONNameInServer; 
 
     private AssetBundle spriteBundle;
 
     IEnumerator GetDataFromServer()
     {
-        UnityWebRequest request = UnityWebRequest.Get(serverURL + "/" + stringBundleNameInServer);
+        UnityWebRequest request = UnityWebRequest.Get(serverURL + "/" + bundleNameInServer);
 
         yield return request.SendWebRequest();
         
