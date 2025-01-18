@@ -26,6 +26,7 @@ public class LoadData : MonoBehaviour
     private AssetBundle spriteBundle;
 
     [SerializeField] private GameScreen gameScreen;
+    [SerializeField] private LoadingScreen loadingScreen;
 
     private IEnumerator Start()
     {
@@ -42,6 +43,12 @@ public class LoadData : MonoBehaviour
             Coroutine getStartingNumber = StartCoroutine(GetSettingsFromJSONFileInServer());
 
             yield return getStartingNumber;
+            
+            loadingScreen.StartGame();
+        }
+        else
+        {
+            loadingScreen.StartGame();
         }
     }
 

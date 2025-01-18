@@ -391,6 +391,7 @@ GameObject:
   - component: {fileID: 372035063}
   - component: {fileID: 372035065}
   - component: {fileID: 372035064}
+  - component: {fileID: 372035066}
   m_Layer: 5
   m_Name: LoadingScreen
   m_TagString: Untagged
@@ -413,7 +414,7 @@ RectTransform:
   - {fileID: 536751033}
   - {fileID: 1872885831}
   m_Father: {fileID: 1334849311}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -458,6 +459,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 372035062}
   m_CullTransparentMesh: 1
+--- !u!114 &372035066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 372035062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d65ae02543003542a78f8588ef3f49a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingSlider: {fileID: 1872885832}
+  gameScreen: {fileID: 1985230484}
 --- !u!1 &415949485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1147,8 +1162,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 372035063}
   - {fileID: 1985230481}
+  - {fileID: 372035063}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1413,7 +1428,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 3
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -1581,7 +1596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1985230481
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1598,7 +1613,7 @@ RectTransform:
   - {fileID: 136967963}
   - {fileID: 946568276}
   m_Father: {fileID: 1334849311}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1691,7 +1706,8 @@ MonoBehaviour:
   bundleNameInServer: 
   welcomeJSONNameInServer: 
   settingsJSONNameInServer: 
-  gameScreen: {fileID: 0}
+  gameScreen: {fileID: 1985230484}
+  loadingScreen: {fileID: 372035066}
 --- !u!4 &2087811262
 Transform:
   m_ObjectHideFlags: 0

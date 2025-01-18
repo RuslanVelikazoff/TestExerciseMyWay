@@ -1,18 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LoadingScreen : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] 
+    private Slider loadingSlider;
+
+    private bool startGame = false;
+
+    private float timeLeft;
+    private float loadingTime = 3;
+
+    [SerializeField] 
+    private GameScreen gameScreen;
+
+    private void Update()
     {
+        if (timeLeft < loadingTime)
+        {
+            timeLeft += Time.deltaTime;
+            loadingSlider.value = timeLeft;
+        }
+        else
+        {
+            if (startGame)
+            {
+                this.gameObject.SetActive(false);
+                gameScreen.gameObject.SetActive(true);
+            }
+        }
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartGame()
     {
-        
+        startGame = true;
     }
 }
